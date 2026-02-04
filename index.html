@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication | Newage Onrender</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top right, #1e1b4b, #0f172a);
+        }
+
+        .glass-effect {
+            background: rgba(30, 27, 75, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .form-input {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+            outline: none;
+        }
+
+        .tab-active {
+            border-bottom: 2px solid #6366f1;
+            color: white;
+        }
+
+        .hidden-form {
+            display: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- HEADER -->
+    <header class="w-full p-6 flex justify-between items-center bg-indigo-950/50 backdrop-blur-md border-b border-indigo-800/30">
+        <div class="flex items-center space-x-2">
+            <div class="w-10 h-10 bg-indigo-500 rounded-lg flex items-center justify-center font-bold text-white shadow-lg">NO</div>
+            <span class="text-2xl font-bold text-white tracking-tight">Newage Onrender</span>
+        </div>
+       <a href="https://invest.onrender.com" class="text-indigo-300 hover:text-white transition-colors text-sm font-medium">
+    Back to Home
+</a>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow flex items-center justify-center p-6">
+        <div class="w-full max-w-lg glass-effect rounded-3xl p-8 shadow-2xl">
+            
+            <!-- TABS -->
+            <div class="flex border-b border-indigo-800/50 mb-8">
+                <button onclick="switchTab('login')" id="login-tab" class="flex-1 py-4 text-center font-semibold text-indigo-300 tab-active transition-all">Login</button>
+                <button onclick="switchTab('register')" id="register-tab" class="flex-1 py-4 text-center font-semibold text-indigo-300 transition-all">Create Account</button>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <form id="login-form" class="space-y-5">
+                <div>
+                    <label class="block text-indigo-200 text-sm mb-2">Email Address</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-indigo-500"></i>
+                        <input type="email" autocomplete="username" class="form-input w-full pl-11 pr-4 py-3 rounded-xl" placeholder="name@company.com" required>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-indigo-200 text-sm mb-2">Password</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-indigo-500"></i>
+                        <input type="password" autocomplete="current-password" class="form-input w-full pl-11 pr-4 py-3 rounded-xl" placeholder="••••••••" required>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between text-xs sm:text-sm">
+                    <label class="flex items-center text-indigo-300 cursor-pointer">
+                        <input type="checkbox" class="mr-2 rounded border-indigo-500 bg-indigo-900 text-indigo-600 focus:ring-indigo-500"> Remember me
+                    </label>
+                    <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium">Forgot Password?</a>
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3.5 rounded-xl shadow-lg transition-all transform active:scale-[0.98]">
+                    Sign In
+                </button>
+            </form>
+
+            <!-- REGISTER FORM -->
+            <form id="register-form" class="space-y-5 hidden-form" onsubmit="handleRegistration(event)">
+                <div>
+                    <label class="block text-indigo-200 text-sm mb-2">Full Name</label>
+                    <input type="text" class="form-input w-full px-4 py-3 rounded-xl" placeholder="John Doe" required>
+                </div>
+                <div>
+                    <label class="block text-indigo-200 text-sm mb-2">Email Address</label>
+                    <input type="email" class="form-input w-full px-4 py-3 rounded-xl" placeholder="john@example.com" required>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-indigo-200 text-sm mb-2">Gender</label>
+                        <select class="form-input w-full px-4 py-3 rounded-xl appearance-none cursor-pointer">
+                            <option value="" disabled selected>Select</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-indigo-200 text-sm mb-2">Country</label>
+                        <select class="form-input w-full px-4 py-3 rounded-xl appearance-none cursor-pointer" required>
+                            <option value="" disabled selected>Select</option>
+  <option value="AF">Afghanistan</option>
+<option value="AL">Albania</option>
+<option value="DZ">Algeria</option>
+<option value="AD">Andorra</option>
+<option value="AO">Angola</option>
+<option value="AG">Antigua and Barbuda</option>
+<option value="AR">Argentina</option>
+<option value="AM">Armenia</option>
+<option value="AU">Australia</option>
+<option value="AT">Austria</option>
+<option value="AZ">Azerbaijan</option>
+
+<option value="BS">Bahamas</option>
+<option value="BH">Bahrain</option>
+<option value="BD">Bangladesh</option>
+<option value="BB">Barbados</option>
+<option value="BY">Belarus</option>
+<option value="BE">Belgium</option>
+<option value="BZ">Belize</option>
+<option value="BJ">Benin</option>
+<option value="BT">Bhutan</option>
+<option value="BO">Bolivia</option>
+<option value="BA">Bosnia and Herzegovina</option>
+<option value="BW">Botswana</option>
+<option value="BR">Brazil</option>
+<option value="BN">Brunei</option>
+<option value="BG">Bulgaria</option>
+<option value="BF">Burkina Faso</option>
+<option value="BI">Burundi</option>
+
+<option value="KH">Cambodia</option>
+<option value="CM">Cameroon</option>
+<option value="CA">Canada</option>
+<option value="CV">Cape Verde</option>
+<option value="CF">Central African Republic</option>
+<option value="TD">Chad</option>
+<option value="CL">Chile</option>
+<option value="CN">China</option>
+<option value="CO">Colombia</option>
+<option value="KM">Comoros</option>
+<option value="CG">Congo</option>
+<option value="CR">Costa Rica</option>
+<option value="CI">Côte d’Ivoire</option>
+<option value="HR">Croatia</option>
+<option value="CU">Cuba</option>
+<option value="CY">Cyprus</option>
+<option value="CZ">Czech Republic</option>
+
+<option value="DK">Denmark</option>
+<option value="DJ">Djibouti</option>
+<option value="DM">Dominica</option>
+<option value="DO">Dominican Republic</option>
+
+<option value="EC">Ecuador</option>
+<option value="EG">Egypt</option>
+<option value="SV">El Salvador</option>
+<option value="GQ">Equatorial Guinea</option>
+<option value="ER">Eritrea</option>
+<option value="EE">Estonia</option>
+<option value="SZ">Eswatini</option>
+<option value="ET">Ethiopia</option>
+
+<option value="FJ">Fiji</option>
+<option value="FI">Finland</option>
+<option value="FR">France</option>
+
+<option value="GA">Gabon</option>
+<option value="GM">Gambia</option>
+<option value="GE">Georgia</option>
+<option value="DE">Germany</option>
+<option value="GH">Ghana</option>
+<option value="GR">Greece</option>
+<option value="GD">Grenada</option>
+<option value="GT">Guatemala</option>
+<option value="GN">Guinea</option>
+<option value="GW">Guinea-Bissau</option>
+<option value="GY">Guyana</option>
+
+<option value="HT">Haiti</option>
+<option value="HN">Honduras</option>
+<option value="HU">Hungary</option>
+
+<option value="IS">Iceland</option>
+<option value="IN">India</option>
+<option value="ID">Indonesia</option>
+<option value="IR">Iran</option>
+<option value="IQ">Iraq</option>
+<option value="IE">Ireland</option>
+<option value="IL">Israel</option>
+<option value="IT">Italy</option>
+
+<option value="JM">Jamaica</option>
+<option value="JP">Japan</option>
+<option value="JO">Jordan</option>
+
+<option value="KZ">Kazakhstan</option>
+<option value="KE">Kenya</option>
+<option value="KI">Kiribati</option>
+<option value="KW">Kuwait</option>
+<option value="KG">Kyrgyzstan</option>
+
+<option value="LA">Laos</option>
+<option value="LV">Latvia</option>
+<option value="LB">Lebanon</option>
+<option value="LS">Lesotho</option>
+<option value="LR">Liberia</option>
+<option value="LY">Libya</option>
+<option value="LI">Liechtenstein</option>
+<option value="LT">Lithuania</option>
+<option value="LU">Luxembourg</option>
+
+<option value="MG">Madagascar</option>
+<option value="MW">Malawi</option>
+<option value="MY">Malaysia</option>
+<option value="MV">Maldives</option>
+<option value="ML">Mali</option>
+<option value="MT">Malta</option>
+<option value="MH">Marshall Islands</option>
+<option value="MR">Mauritania</option>
+<option value="MU">Mauritius</option>
+<option value="MX">Mexico</option>
+<option value="FM">Micronesia</option>
+<option value="MD">Moldova</option>
+<option value="MC">Monaco</option>
+<option value="MN">Mongolia</option>
+<option value="ME">Montenegro</option>
+<option value="MA">Morocco</option>
+<option value="MZ">Mozambique</option>
+<option value="MM">Myanmar</option>
+
+<option value="NA">Namibia</option>
+<option value="NR">Nauru</option>
+<option value="NP">Nepal</option>
+<option value="NL">Netherlands</option>
+<option value="NZ">New Zealand</option>
+<option value="NI">Nicaragua</option>
+<option value="NE">Niger</option>
+<option value="NG">Nigeria</option>
+<option value="KP">North Korea</option>
+<option value="MK">North Macedonia</option>
+<option value="NO">Norway</option>
+
+<option value="OM">Oman</option>
+
+<option value="PK">Pakistan</option>
+<option value="PW">Palau</option>
+<option value="PA">Panama</option>
+<option value="PG">Papua New Guinea</option>
+<option value="PY">Paraguay</option>
+<option value="PE">Peru</option>
+<option value="PH">Philippines</option>
+<option value="PL">Poland</option>
+<option value="PT">Portugal</option>
+
+<option value="QA">Qatar</option>
+
+<option value="RO">Romania</option>
+<option value="RU">Russia</option>
+<option value="RW">Rwanda</option>
+
+<option value="KN">Saint Kitts and Nevis</option>
+<option value="LC">Saint Lucia</option>
+<option value="VC">Saint Vincent and the Grenadines</option>
+<option value="WS">Samoa</option>
+<option value="SM">San Marino</option>
+<option value="ST">Sao Tome and Principe</option>
+<option value="SA">Saudi Arabia</option>
+<option value="SN">Senegal</option>
+<option value="RS">Serbia</option>
+<option value="SC">Seychelles</option>
+<option value="SL">Sierra Leone</option>
+<option value="SG">Singapore</option>
+<option value="SK">Slovakia</option>
+<option value="SI">Slovenia</option>
+<option value="SB">Solomon Islands</option>
+<option value="SO">Somalia</option>
+<option value="ZA">South Africa</option>
+<option value="KR">South Korea</option>
+<option value="ES">Spain</option>
+<option value="LK">Sri Lanka</option>
+<option value="SD">Sudan</option>
+<option value="SR">Suriname</option>
+<option value="SE">Sweden</option>
+<option value="CH">Switzerland</option>
+<option value="SY">Syria</option>
+
+<option value="TW">Taiwan</option>
+<option value="TJ">Tajikistan</option>
+<option value="TZ">Tanzania</option>
+<option value="TH">Thailand</option>
+<option value="TL">Timor-Leste</option>
+<option value="TG">Togo</option>
+<option value="TO">Tonga</option>
+<option value="TT">Trinidad and Tobago</option>
+<option value="TN">Tunisia</option>
+<option value="TR">Turkey</option>
+<option value="TM">Turkmenistan</option>
+<option value="TV">Tuvalu</option>
+
+<option value="UG">Uganda</option>
+<option value="UA">Ukraine</option>
+<option value="AE">United Arab Emirates</option>
+<option value="UK">United Kingdom</option>
+<option value="US">United States</option>
+<option value="UY">Uruguay</option>
+<option value="UZ">Uzbekistan</option>
+
+<option value="VU">Vanuatu</option>
+<option value="VA">Vatican City</option>
+<option value="VE">Venezuela</option>
+<option value="VN">Vietnam</option>
+
+<option value="YE">Yemen</option>
+
+<option value="ZM">Zambia</option>
+<option value="ZW">Zimbabwe</option>
+                            <!-- More countries can be added here -->
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-indigo-200 text-sm mb-2">Password</label>
+                    <input type="password" class="form-input w-full px-4 py-3 rounded-xl" placeholder="••••••••" required>
+                </div>
+                <div>
+                    <label class="block text-indigo-200 text-sm mb-2">Confirm Password</label>
+                    <input type="password" class="form-input w-full px-4 py-3 rounded-xl" placeholder="••••••••" required>
+                </div>
+                <button type="submit" id="reg-btn" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3.5 rounded-xl shadow-lg transition-all transform active:scale-[0.98]">
+                    Create Account
+                </button>
+            </form>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="w-full p-8 bg-black/40 border-t border-indigo-900/50">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <div class="text-indigo-400 text-sm">
+                &copy; 2024 Newage Onrender. All rights reserved.
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="text-indigo-300 hover:text-white transition text-xs uppercase tracking-wider font-semibold">Privacy Policy</a>
+                <a href="#" class="text-indigo-300 hover:text-white transition text-xs uppercase tracking-wider font-semibold">Terms of Service</a>
+                <a href="#" class="text-indigo-300 hover:text-white transition text-xs uppercase tracking-wider font-semibold">Contact</a>
+            </div>
+            <div class="flex space-x-4">
+                <i class="fa-brands fa-x-twitter text-indigo-400 hover:text-white cursor-pointer transition"></i>
+                <i class="fa-brands fa-linkedin text-indigo-400 hover:text-white cursor-pointer transition"></i>
+                <i class="fa-brands fa-github text-indigo-400 hover:text-white cursor-pointer transition"></i>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function switchTab(tab) {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const loginTab = document.getElementById('login-tab');
+            const registerTab = document.getElementById('register-tab');
+
+            if (tab === 'login') {
+                loginForm.classList.remove('hidden-form');
+                registerForm.classList.add('hidden-form');
+                loginTab.classList.add('tab-active');
+                registerTab.classList.remove('tab-active');
+            } else {
+                loginForm.classList.add('hidden-form');
+                registerForm.classList.remove('hidden-form');
+                loginTab.classList.remove('tab-active');
+                registerTab.classList.add('tab-active');
+            }
+        }
+
+        function handleRegistration(event) {
+            event.preventDefault();
+            const btn = document.getElementById('reg-btn');
+            
+            // Visual feedback
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin mr-2"></i> Creating...';
+            btn.classList.add('opacity-80', 'cursor-not-allowed');
+
+            // 1 second delay then redirect
+            setTimeout(() => {
+                window.location.href = "https://Newage.onrender.com";
+            }, 1000);
+        }
+    </script>
+<script>
+document.getElementById("login-form").addEventListener("submit", function (e) {
+    e.preventDefault(); // stop default submit
+
+    // HTML5 validation check
+    if (this.checkValidity()) {
+        window.location.href = "https://Newage.onrender.com";
+    } else {
+        this.reportValidity();
+    }
+});
+</script>
+</body>
+</html>
